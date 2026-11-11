@@ -57,9 +57,23 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative mx-auto mb-8 h-32 w-32 sm:h-36 sm:w-36"
+        >
+          <div className="absolute -inset-2 rounded-full bg-gradient-to-tr from-indigo-500 to-cyan-400 opacity-70 blur-md -z-10" />
+          <img
+            src="/profile.png"
+            alt={profile.name}
+            className="h-full w-full rounded-full object-cover border-2 border-white/20 shadow-xl"
+          />
+        </motion.div>
+
+        <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm text-slate-300 mb-8"
         >
           <HiOutlineSparkles className="text-cyan-400" />

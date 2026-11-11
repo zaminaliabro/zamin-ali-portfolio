@@ -11,7 +11,7 @@ export const profile = {
   role: "MERN Stack Developer",
   tagline:
     "I design and build fast, scalable web applications with React, Node.js and modern JavaScript — turning ideas into clean, production-ready products.",
-  email: "info@ingramsparkservices.com",
+  email: "zaminaliabro476@gmail.com",
   location: "Pakistan",
   github: "https://github.com/zaminaliabro",
   linkedin: "https://linkedin.com/",
@@ -38,6 +38,21 @@ export const skills = [
 
 export const floatingIcons = [
   FaReact, SiJavascript, FaNodeJs, SiMongodb, SiExpress, SiTailwindcss, FaGitAlt, SiRedux,
+];
+
+export const experience = [
+  {
+    role: "Full Stack Developer",
+    org: "Wolf Stack Digital",
+    period: "3 Months",
+    highlights: [
+      "Built and maintained client website features — from responsive UI components to backend integrations",
+      "Set up analytics and tracking infrastructure (GA4, Google Tag Manager) for client ecommerce platforms",
+      "Integrated third-party APIs/tools (Google Analytics, Search Console, Looker Studio) with client systems and built custom reporting dashboards",
+      "Debugged technical issues — tracking errors, data configuration problems — with end-to-end root-cause analysis",
+      "Worked cross-functionally, translating client requirements into technical implementation",
+    ],
+  },
 ];
 
 export const projects = [

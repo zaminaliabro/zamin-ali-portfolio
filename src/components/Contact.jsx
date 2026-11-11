@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FiMail, FiGithub, FiLinkedin, FiSend, FiCheckCircle } from "react-icons/fi";
+import { FiMail, FiGithub, FiLinkedin, FiSend, FiCheckCircle, FiAlertCircle } from "react-icons/fi";
 import Reveal from "./ui/Reveal";
 import SectionHeading from "./ui/SectionHeading";
 import { profile } from "../data/portfolio";
+
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
 const contactLinks = [
   { icon: FiMail, label: "Email", value: profile.email, href: `mailto:${profile.email}` },
@@ -23,13 +25,29 @@ export default function Contact() {
     e.preventDefault();
     setStatus("sending");
 
-    // TODO: wire this up to EmailJS or Resend.
-    // Example (EmailJS): emailjs.send(SERVICE_ID, TEMPLATE_ID, form, PUBLIC_KEY)
-    await new Promise((res) => setTimeout(res, 900));
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          subject: `New portfolio message from ${form.name}`,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message || "Send failed");
 
-    setStatus("sent");
-    setForm({ name: "", email: "", message: "" });
-    setTimeout(() => setStatus("idle"), 4000);
+      setStatus("sent");
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error("Web3Forms send failed:", err);
+      setStatus("error");
+    } finally {
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   };
 
   return (
@@ -124,6 +142,10 @@ export default function Contact() {
                 {status === "sent" ? (
                   <>
                     <FiCheckCircle /> Sent!
+                  </>
+                ) : status === "error" ? (
+                  <>
+                    <FiAlertCircle /> Failed, try again
                   </>
                 ) : (
                   <>
